@@ -1,0 +1,12 @@
+cmake-build-debug
+.idea
+bin/*
+bin/cache/*
+bin/stream/*
+build
+build/*
+src/Version.h
+*/_*
+tests/testFiles/assetTest.*
+tests/testFiles/rpcTest.db
+!*/.gitkeep
