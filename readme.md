@@ -1,18 +1,7 @@
 ## Table of Contents
 1. [Build on Windows](#build-on-windows)
-2. [Install Ubuntu](#install-ubuntu)
-3. [Increase Swap Size](#increase-swap-size)
 4. [Install DigiByte](#install-digibyte)
-5. [Install Dependencies](#install-dependencies)
-6. [Install VCPKG](#install-vcpkg)
-7. [Install Standard C++ Dependencies](#install-standard-c-dependencies)
-8. [Update CMAKE](#update-cmake)
 9. [Install IPFS](#install-ipfs)
-10. [Set IPFS to Run on Boot](#set-ipfs-to-run-on-boot)
-11. [Build DigiAsset Core](#build-digiasset-core)
-12. [Configure DigiAsset Core](#configure-digiasset-core)
-13. [Set DigiAsset Core to Run at Boot](#set-digiasset-core-to-run-at-boot)
-14. [Upgrading DigiAsset Core](#upgrading-digiasset-core)
 15. [Documentation](#Documentation)
 16. [Other Notes](#other-notes)
 17. [Special Thanks](#special-thanks)
@@ -36,13 +25,13 @@ This project uses CMake for the build system. Since we're focusing on Visual Stu
 If you just want to build binaries:
 
 ```cmd
-git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/l0stman/DigiAsset_Core.git
+git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/chopperbrian/DigiAsset_Core_Windows.git
 ```
 
 Or if you want to work on the code (see CONTRIBUTING.md for more details):
 
 ```cmd
-git clone --no-single-branch --recurse-submodules https://github.com/l0stman/DigiAsset_Core.git
+git clone --no-single-branch --recurse-submodules https://github.com/chopperbrian/DigiAsset_Core_Windows.git
 ```
 
 ### Set Up VCPKG
@@ -92,36 +81,6 @@ Execute:
 
 Then open the solution file in Visual Studio, select the same build configuration ("Debug" or "Release") as in the previous steps, and run "Build" on `ALL_BUILD`. The `digiasset_core.exe` binary can be found inside the `DigiAsset_Core\build\src\Debug` or `DigiAsset_Core\build\src\Release` directory, depending on your chosen configuration. It should be launched from there since there are some DLL dependencies in that location.
 
-## Install Ubuntu
-
-Ideally this should work on all OS. So far it has only been tested on:
-
-- Ubuntu 20.04LTS - app works but google tests don't compile
-- Ubuntu 22.04LTS - all functions
-
-The instructions below are specifically writen for Ubuntu 22.04 LTS any other OS may have slightly different
-instructions needed.
-
-Install ubuntu server using default settings.
-
-## Increase swap size
-
-Default install had a 4GB swap file but DigiByte core kept crashing during sync so I increased it to 8GB
-
-```bash
-sudo swapoff /swap.img
-sudo dd if=/dev/zero bs=1M count=8192 oflag=append conv=notrunc of=/swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-sudo swapon --show
-sudo nano /etc/fstab
-```
-
-place the following at the end(if swap.img is already there replace it)
-
-```
-/swapfile       none    swap    sw      0       0
-```
 
 ## Install DigiByte
 
