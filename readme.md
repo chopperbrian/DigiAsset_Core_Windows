@@ -21,16 +21,10 @@ This project uses CMake for the build system. Since we're focusing on Visual Stu
 
 ### Clone the Repository
 
-If you just want to build binaries:
+If you just want to build binaries, use the Clone a repository option and use the following path.
 
 ```cmd
-git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/chopperbrian/DigiAsset_Core_Windows.git
-```
-
-Or if you want to work on the code (see CONTRIBUTING.md for more details):
-
-```cmd
-git clone --no-single-branch --recurse-submodules https://github.com/chopperbrian/DigiAsset_Core_Windows.git
+https://github.com/chopperbrian/DigiAsset_Core_Windows.git
 ```
 
 ### Set Up VCPKG
