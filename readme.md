@@ -107,6 +107,7 @@ rpcallowip=127.0.0.1
 listen=1
 server=1
 txindex=1
+deprecatedrpc=addresses
 addnode=191.81.59.115
 addnode=175.45.182.173
 addnode=45.76.235.153
@@ -128,10 +129,12 @@ Press Ctrl+C to stop the daemon
 
 ## Configure DigiAsset Core
 
-The first time you run DigiAsset Core it will ask you several questions to set up your config file.  Run DigiAsset Core using from the folder you want to run from.
+The first time you run DigiAsset Core it will ask you several questions to set up your config file.  Run DigiAsset_Core using from the folder you want to run from. You will also need to open another cmd windows and run digiasset_web.
 
 ```bash
 digiasset_core
+digiasset_web
+
 ```
 
 This will create config.cfg the wizard creates only the basic config for a full list of config options see example.cfg
@@ -150,8 +153,3 @@ To access documentation run the digiasset_core-web application then go to http:/
 
 ---
 
-# Special Thanks
-
-### Major Financial Support:
-
-RevGenetics [Longevity Supplements](https://www.RevGenetics.com)
