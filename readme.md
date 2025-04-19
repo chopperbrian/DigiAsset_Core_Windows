@@ -1,18 +1,6 @@
 ## Table of Contents
 1. [Build on Windows](#build-on-windows)
-2. [Install Ubuntu](#install-ubuntu)
-3. [Increase Swap Size](#increase-swap-size)
-4. [Install DigiByte](#install-digibyte)
-5. [Install Dependencies](#install-dependencies)
-6. [Install VCPKG](#install-vcpkg)
-7. [Install Standard C++ Dependencies](#install-standard-c-dependencies)
-8. [Update CMAKE](#update-cmake)
-9. [Install IPFS](#install-ipfs)
-10. [Set IPFS to Run on Boot](#set-ipfs-to-run-on-boot)
-11. [Build DigiAsset Core](#build-digiasset-core)
-12. [Configure DigiAsset Core](#configure-digiasset-core)
-13. [Set DigiAsset Core to Run at Boot](#set-digiasset-core-to-run-at-boot)
-14. [Upgrading DigiAsset Core](#upgrading-digiasset-core)
+2. [Install DigiByte](#install-digibyte)
 15. [Documentation](#Documentation)
 16. [Other Notes](#other-notes)
 17. [Special Thanks](#special-thanks)
@@ -103,46 +91,10 @@ Execute:
 
 Then open the solution file in Visual Studio, select the **same** build configuration ("Debug" or "Release") as in the previous steps, and run "Build" on `ALL_BUILD`. The `digiasset_core.exe` binary can be found inside the `DigiAsset_Core\build\src\Debug` or `DigiAsset_Core\build\src\Release` directory, depending on your chosen configuration. It should be launched from there since there are some DLL dependencies in that location.
 
-## Install Ubuntu
-
-Ideally this should work on all OS. So far it has only been tested on:
-
-- Ubuntu 20.04LTS - app works but google tests don't compile
-- Ubuntu 22.04LTS - all functions
-
-The instructions below are specifically writen for Ubuntu 22.04 LTS any other OS may have slightly different
-instructions needed.
-
-Install ubuntu server using default settings.
-
-## Increase swap size
-
-Default install had a 4GB swap file but DigiByte core kept crashing during sync so I increased it to 8GB
-
-```bash
-sudo swapoff /swap.img
-sudo dd if=/dev/zero bs=1M count=8192 oflag=append conv=notrunc of=/swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-sudo swapon --show
-sudo nano /etc/fstab
-```
-
-place the following at the end(if swap.img is already there replace it)
-
-```
-/swapfile       none    swap    sw      0       0
-```
 
 ## Install DigiByte
 
-```bash
-wget wget https://github.com/DigiByte-Core/digibyte/releases/download/v7.17.3/digibyte-7.17.3-x86_64-linux-gnu.tar.gz
-tar -xf digibyte-7.17.3-x86_64-linux-gnu.tar.gz
-rm digibyte-7.17.3-x86_64-linux-gnu.tar.gz
-mkdir .digibyte
-nano .digibyte/digibyte.conf
-```
+Download and install the latest verison of the DigiByte Core Wallet. Install to the default locations, unless you need to change the location on your hard drive. Then add the following lines to the digibyte.conf file.
 
 ```
 rpcuser=user
@@ -163,240 +115,28 @@ addnode=8.214.25.169
 addnode=47.75.38.245
 ```
 
-to get digibyte to run on boot do the following
-
-```bash
-sudo nano /etc/systemd/system/digibyted.service
-```
-
-```
-[Unit]
-Description=DigiByte's distributed currency daemon
-After=network.target
-
-[Service]
-User=<your-username>
-Group=<your-username>
-
-Type=forking
-PIDFile=/home/<your-username>/.digibyte/digibyted.pid
-ExecStart=/home/<your-username>/digibyte-7.17.2/bin/digibyted -daemon -pid=/home/<your-username>/.digibyte/digibyted.pid \
--conf=/home/<your-username>/.digibyte/digibyte.conf -datadir=/home/<your-username>/.digibyte
-
-Restart=always
-PrivateTmp=true
-TimeoutStopSec=60s
-TimeoutStartSec=2s
-StartLimitInterval=120s
-StartLimitBurst=5
-
-[Install]
-WantedBy=multi-user.target
-```
-
-replace <your-username>
-
-Enable the service on boot
-
-```bash
-sudo systemctl enable digibyted.service
-```
-
-Start the service
-
-```bash
-sudo systemctl start digibyted.service
-```
-
-## Install Dependencies
-
-```bash
-sudo apt update
-sudo apt upgrade
-sudo apt-get install cmake libcurl4-openssl-dev libjsoncpp-dev golang-go libjsonrpccpp-dev libjsonrpccpp-tools libsqlite3-dev build-essential pkg-config zip unzip libssl-dev
-sudo apt install libboost-all-dev
-```
-
-## Install VCPKG
-
-```bash
-wget -qO vcpkg.tar.gz https://github.com/microsoft/vcpkg/archive/master.tar.gz
-sudo mkdir /opt/vcpkg
-sudo tar xf vcpkg.tar.gz --strip-components=1 -C /opt/vcpkg
-rm vcpkg.tar.gz
-sudo /opt/vcpkg/bootstrap-vcpkg.sh
-sudo ln -s /opt/vcpkg/vcpkg /usr/local/bin/vcpkg
-```
-
-## Install Standard C++ Dependencies
-
-Warning: The following steps build a lot of code and can take a long time to complete
-
-```bash
-sudo vcpkg install sqlite3
-```
-
-## Update CMAKE
-
-```bash
-wget https://github.com/Kitware/CMake/releases/download/v3.27.7/cmake-3.27.7-linux-x86_64.sh
-chmod +x cmake-3.27.7-linux-x86_64.sh
-sudo ./cmake-3.27.7-linux-x86_64.sh --prefix=/usr/local
-export PATH=/usr/local/cmake-3.27.7-linux-x86_64/bin:$PATH
-nano ~/.bashrc
-```
-
-at the end of the file add
-
-```
-export PATH=/usr/local/cmake-3.27.7-linux-x86_64/bin:$PATH
-```
 
 ## Install IPFS
 
-```bash
-wget https://dist.ipfs.tech/kubo/v0.22.0/kubo_v0.22.0_linux-amd64.tar.gz
-tar -xvzf kubo_v0.22.0_linux-amd64.tar.gz
-cd kubo
-sudo bash install.sh
-ipfs init
-ipfs daemon
-
-```
+Download and isntall the curretn IPFS from https://github.com/ipfs/ipfs-desktop/releases
 
 this step will list out a lot of data of importance is the line that says "RPC API server listening on" it is usually
 port 5001 note it down if it is not. You can now see IPFS usage at localhost:5001/webui in your web browser(if not
 headless).
 Press Ctrl+C to stop the daemon
 
-## Set IPFS to run on boot
-
-```bash
-cd ~
-sudo nano /etc/systemd/system/ipfs.service
-```
-
-edit the file to look like this
-
-```
-[Unit]
-Description=IPFS Daemon
-After=network.target
-
-[Service]
-ExecStart=/usr/local/bin/ipfs daemon
-User=<your-username>
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-```
-
-replace <your-username>
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl enable ipfs.service
-sudo systemctl start ipfs.service
-```
-
-## Build DigiAsset Core
-
-```bash
-git clone -b master --recursive https://github.com/DigiAsset-Core/DigiAsset_Core.git
-cd DigiAsset_Core
-git submodule update --init --recursive
-mkdir build
-cd build
-cmake -B . -S .. -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake
-cmake --build .
-mv src/digiasset_core ../bin
-mv cli/digiasset_core-cli ../bin
-mv web/digiasset_core-web ../bin
-cd ../bin
-```
-
-* if you wish to build the test scripts add to first cmake -DBUILD_TEST=ON
-
 ## Configure DigiAsset Core
 
-The first time you run DigiAsset Core it will ask you several questions to set up your config file.  Run DigiAsset Core using
+The first time you run DigiAsset Core it will ask you several questions to set up your config file.  Run DigiAsset Core using from the folder you want to run from.
 
 ```bash
-./digiasset_core
+digiasset_core
 ```
 
-This will create bin/config.cfg the wizard creates only the basic config for a full list of config options see example.cfg
+This will create config.cfg the wizard creates only the basic config for a full list of config options see example.cfg
 
 Make sure DigiAsset Core is running correctly and then press ctrl+c to stop it and continue with instructions.
 
----
-
-## Set DigiAsset Core to run at boot
-
-```bash
-sudo nano /etc/systemd/system/digiasset_core.service
-```
-
-```
-[Unit]
-Description=DigiAsset Core
-After=network.target digibyted.service
-
-[Service]
-User=<your-username>
-Group=<your-username>
-
-Type=simple
-ExecStart=/home/<your-username>/DigiAsset_Core/bin/digiasset_core
-WorkingDirectory=/home/<your-username>/DigiAsset_Core/bin
-
-Restart=always
-PrivateTmp=true
-TimeoutStopSec=60s
-TimeoutStartSec=2s
-StartLimitInterval=120s
-StartLimitBurst=5
-
-[Install]
-WantedBy=multi-user.target
-```
-
-replace <your-username>
-
-Enable the service on boot
-
-```bash
-sudo systemctl enable digiasset_core.service
-```
-
-Start the service
-
-```bash
-sudo systemctl start digiasset_core.service
-```
-
-## Upgrading DigiAsset Core
-
-When a new version is available you can upgrade by running the following commands
-```bash
-cd DigiAsset_Core/bin
-./digiasset_core-cli shutdown
-sudo systemctl stop digiasset_core.service
-cd ..
-git pull
-git submodule update --init --recursive
-cd build
-cmake -B . -S .. -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake
-cmake --build .
-mv src/digiasset_core ../bin
-mv cli/digiasset_core-cli ../bin
-mv web/digiasset_core-web ../bin
-cd ../bin
-sudo systemctl start digiasset_core.service
-```
-
----
 
 ## Documentation
 
