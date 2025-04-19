@@ -94,7 +94,8 @@ Then open the solution file in Visual Studio, select the **same** build configur
 
 ## Install DigiByte
 
-Download and install the latest verison of the DigiByte Core Wallet. Install to the default locations, unless you need to change the location on your hard drive. Then add the following lines to the digibyte.conf file.
+Download and install the latest verison of the DigiByte Core Wallet. https://github.com/DigiByte-Core/digibyte/releases/download/v8.22.2/digibyte-8.22.2-win64-setup.exe
+Install to the default locations, unless you need to change the location on your hard drive. Then add the following lines to the digibyte.conf file.
 
 ```
 rpcuser=user
