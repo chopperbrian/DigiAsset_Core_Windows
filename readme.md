@@ -11,6 +11,8 @@
 
 This fork builds a Windows version with Visual Studio and MSVC in the main branch, with upstream tracking in the 'upstream-master' branch.
 
+Note: If you want to skip the build you can download digiasset_core.exe and digiasset_core_web.exe and digiasset_core_cli.exe and run them from a cmd prompt.
+
 ### Prerequisites
 
 This project uses CMake for the build system. Since we're focusing on Visual Studio:
@@ -47,7 +49,7 @@ Before proceeding with the library builds, you must decide whether you want to c
 
 ### Install Dependencies
 
-At the top-level directory, execute:
+At the top-level directory, execute. Note: This will take some time. Depending on the hardware this could take over 2 hours to finish.
 
 ```cmd
 .\install-dependencies.bat
