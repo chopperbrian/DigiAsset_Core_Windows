@@ -11,7 +11,8 @@
 
 This fork builds a Windows version with Visual Studio and MSVC in the main branch, with upstream tracking in the 'upstream-master' branch.
 
-Note: If you want to skip the build you can download digiasset_core.exe and digiasset_core_web.exe and digiasset_core_cli.exe and run them from a cmd prompt.
+Note: If you want to skip the build you can download the DigiAsset for Windows Installer, which will install the files in to c:\digiasset_core_windows or whatever path you chose.
+You will still need to install the IPFS Desktop and DigiByte Core wallet with the changes from below.
 
 ### Prerequisites
 
