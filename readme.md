@@ -10,7 +10,7 @@
 
 This fork builds a Windows version with Visual Studio and MSVC in the main branch, with upstream tracking in the 'upstream-master' branch.
 
-Note: If you want to skip the build you can download the DigiAsset for Windows Installer, which will install the files in to c:\digiasset_core_windows or whatever path you chose.
+Note: If you want to skip the build you can download the DigiAsset for Windows self extracting exe, and extract to c:\digiasset_core_windows or whatever path you chose.
 You will still need to install the IPFS Desktop and DigiByte Core wallet with the changes from below. You can run DigiAsset_Core.exe from a cmd prompt, as well as DigiAsset_core-web.exe from another cmd prompt.
 
 ### Prerequisites
@@ -136,6 +136,12 @@ This will create config.cfg the wizard creates only the basic config for a full 
 
 Make sure DigiAsset Core is running correctly and then press ctrl+c to stop it and continue with instructions.
 
+NOTE: You will also need to open up two firewall ports:
+
+```bash
+Inbound TCP:5001
+Inbound TCP:12024
+```
 
 ## Documentation
 
