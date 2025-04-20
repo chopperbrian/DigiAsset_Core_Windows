@@ -1,9 +1,8 @@
 ## Table of Contents
 1. [Build on Windows](#build-on-windows)
 2. [Install DigiByte](#install-digibyte)
-15. [Documentation](#Documentation)
-16. [Other Notes](#other-notes)
-17. [Special Thanks](#special-thanks)
+3. [Documentation](#Documentation)
+4. [Other Notes](#other-notes)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -12,7 +11,7 @@
 This fork builds a Windows version with Visual Studio and MSVC in the main branch, with upstream tracking in the 'upstream-master' branch.
 
 Note: If you want to skip the build you can download the DigiAsset for Windows Installer, which will install the files in to c:\digiasset_core_windows or whatever path you chose.
-You will still need to install the IPFS Desktop and DigiByte Core wallet with the changes from below.
+You will still need to install the IPFS Desktop and DigiByte Core wallet with the changes from below. You can run DigiAsset_Core.exe from a cmd prompt, as well as DigiAsset_core-web.exe from another cmd prompt.
 
 ### Prerequisites
 
@@ -122,15 +121,14 @@ Download and isntall the curretn IPFS from https://github.com/ipfs/ipfs-desktop/
 this step will list out a lot of data of importance is the line that says "RPC API server listening on" it is usually
 port 5001 note it down if it is not. You can now see IPFS usage at localhost:5001/webui in your web browser(if not
 headless).
-Press Ctrl+C to stop the daemon
 
 ## Configure DigiAsset Core
 
-The first time you run DigiAsset Core it will ask you several questions to set up your config file.  Run DigiAsset_Core using from the folder you want to run from. You will also need to open another cmd windows and run digiasset_web.
+The first time you run DigiAsset Core it will ask you several questions to set up your config file.  Run DigiAsset_Core.exe from a cmd prompt start in the c:\digiasset_core_windows folder. You will also need to open another cmd prompt and run digiasset_core-web.exe.
 
 ```bash
-digiasset_core
-digiasset_web
+digiasset_core.exe
+digiasset_core-web.exe
 
 ```
 
